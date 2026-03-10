@@ -47,6 +47,12 @@ fn  run (mut terminal: DefaultTerminal, app_state:&mut AppState) -> Result<()> {
         terminal.draw(|f|render(f, app_state))?;
         //Input handling
         if let Event::Key(key) = event::read()? {
+
+            // evita repetir tecla
+            if key.kind != event::KeyEventKind::Press {
+                continue;
+            }
+
             if app_state.is_add_new{
                 match  handle_add_new(key, app_state) {
                     FormAction::None => { },
